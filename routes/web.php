@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+// For guest page
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
+    Route::post('/login', [AuthenticationController::class, 'authenticate'])->name('authenticate');
+
+    // Route::get('/register', function () {
+    //     return view('register.index');
+    // });
 });
 
-Route::get('/login', function () {
-    return view('login.index');
-});
 
-Route::get('/register', function () {
-    return view('register.index');
+// For authenticated user page
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+    
+    Route::get('/', function () {
+        return view('index');
+    })->name('dashboard');
 });

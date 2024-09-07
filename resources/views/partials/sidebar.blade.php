@@ -7,7 +7,7 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center my-2" href="/">
         <div class="sidebar-brand-icon" style="width: 40px; overflow: hidden; height: 40px; min-width: 40px;">
             <img style="width: 100%; height: 100%; object-fit: contain; object-position: center;"
-                src="https://placehold.co/600x400" alt="">
+                src="" alt="">
         </div>
         <div class="sidebar-brand-text mx-3" style="text-align: start;">{{ env('APP_NAME') ?? '' }}</div>
     </a>
@@ -23,7 +23,7 @@
 
             @foreach ($menuItem['links'] as $menuItemChild)
                 @if ($menuItemChild['type'] === 'single')
-                    <li class="nav-item">
+                    <li class="nav-item {{ Request::is(ltrim($menuItemChild['link'], '/')) ? 'active': '' }}" href="{{ $menuItemChild['link'] }}">
                         <a class="nav-link" href="{{ $menuItemChild['link'] }}">
                             {!! $menuItemChild['icon'] !!}
                             <span>{{ $menuItemChild['label'] }}</span></a>
@@ -31,7 +31,7 @@
                 @endif
             @endforeach
         @elseif($menuItem['type'] === 'single')
-            <li class="nav-item">
+            <li class="nav-item {{ Request::is(ltrim($menuItem['link'])) ? 'active': '' }}">
                 <a class="nav-link" href="{{ $menuItem['link'] }}">
                     {!! $menuItem['icon'] !!}
                     <span>{{ $menuItem['label'] }}</span></a>

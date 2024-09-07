@@ -7,6 +7,8 @@
 
 @section('content')
     <div class="container-fluid">
+        @include('partials.alert')
+        
         <div class="d-sm-flex align-items-center justify-content-between">
             <div>
                 <h1 class="h4 mb-0 text--black">Edit Buku</h1>

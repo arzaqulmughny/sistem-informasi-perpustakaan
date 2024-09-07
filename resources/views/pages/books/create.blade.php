@@ -7,6 +7,8 @@
 
 @section('content')
     <div class="container-fluid">
+        @include('partials.alert')
+
         <div>
             <h1 class="h4 mb-0 text--black">Tambah Buku</h1>
             <p class="text--black">Harap isi attribut buku yang diperlukan.</p>

@@ -35,9 +35,9 @@ class BookCopyController extends Controller
                 'created_by' => $request->user()->id
             ]);
 
-            return redirect()->route('book.show', $book->id);
+            return redirect()->route('book.show', $book->id)->with('success', 'Data berhasil ditambahkan');
         } catch (Exception $exception) {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Terjadi kesalahan pada server');
         }
     }
 
@@ -47,10 +47,15 @@ class BookCopyController extends Controller
     public function destroy(Book $book, BookCopy $copy)
     {
         try {
+            DB::beginTransaction();
             $copy->delete();
-            return redirect()->back();
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Berhasil menghapus data');
         } catch (Exception $exception) {
-            return redirect()->back();
+            DB::rollBack();
+            
+            return redirect()->back()->with('error', 'Terjadi kesalah pada server');
         }
     }
 }

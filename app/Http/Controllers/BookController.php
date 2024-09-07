@@ -15,7 +15,7 @@ class BookController extends Controller
     /**
      * Show book list
      */
-    public function index(BooksDataTable $dataTable)
+    public function index(BooksDataTable $dataTable, Request $request)
     {
         return $dataTable->render('pages.books.index');
     }
@@ -64,12 +64,11 @@ class BookController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('book.show', $book->id);
+            return redirect()->route('book.show', $book->id)->with('success', 'Data berhasil ditambahkan');
         } catch (Exception $exception) {
-            dd($exception);
             DB::rollBack();
-
-            // return redirect()->route('book.index');
+            
+            return redirect()->route('book.index')->with('error', 'Terjadi kesalahan pada server');
         }
 
         return view('pages.books.create');
@@ -88,12 +87,11 @@ class BookController extends Controller
             $book->update($data);
             
             DB::commit();
-            return redirect()->route('book.show', $book->id);
+            return redirect()->route('book.show', $book->id)->with('success', 'Berhasil memperbarui data');
         } catch (Exception $exception) {
-            dd($exception);
             DB::rollBack();
 
-            // return redirect()->route('book.index');
+            return redirect()->back()->with('error', 'Terjadi kesalahan pada server');
         }
 
         return view('pages.books.create');
@@ -104,8 +102,15 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        $book->delete();
+        try {
+            DB::beginTransaction();
+            $book->delete();
 
-        return redirect()->route('book.index');
+            DB::commit();
+            return redirect()->route('book.index')->with('success', 'Berhasil menghapus data');
+        } catch (Exception $exception) {
+            return redirect()->back('book.index')->with('success', 'Terjadi kesalahan pada server');
+        }
+
     }
 }

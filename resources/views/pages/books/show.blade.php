@@ -7,8 +7,12 @@
 
 @section('content')
     <div class="container-fluid">
+        @include('partials.alert')
+
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h4 mb-0 text--black">Detail Buku</h1>
+
+            <a href="{{ route('book.edit', $data->id) }}" class="btn btn-primary">Edit</a>
         </div>
 
         <form method="POST" action={{ route('book.update', $data->id) }}>
@@ -67,9 +71,8 @@
 
                 <div class="form-group">
                     <label for="category_id">Kategori</label>
-                    <input readonly type="text"
-                        class="form-control" id="category_id"
-                        name="publish_year" placeholder="Kategori" value="{{ $data->category->name ?? '' }}">
+                    <input readonly type="text" class="form-control" id="category_id" name="publish_year"
+                        placeholder="Kategori" value="{{ $data->category->name ?? '' }}">
                     </select>
 
                     @error('category_id')

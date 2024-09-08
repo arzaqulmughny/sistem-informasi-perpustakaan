@@ -5,6 +5,7 @@ use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopyController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,4 +57,7 @@ Route::middleware('auth')->group(function () {
 
     // Book Category
     Route::resource('book-categories', BookCategoryController::class);
+
+    // Staff / User
+    Route::resource('staffs', StaffController::class);
 });

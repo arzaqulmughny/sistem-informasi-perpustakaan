@@ -78,7 +78,7 @@ class Menu
                 [
                     'type' => 'single',
                     'label' => 'Staff',
-                    'link' => '/users',
+                    'link' => '/staffs',
                     'icon' => '<i class="fa fa-fw fa-users"></i>'
                 ],
                 [

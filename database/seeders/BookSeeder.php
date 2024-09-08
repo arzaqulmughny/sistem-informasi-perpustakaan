@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\BookCategory;
 use App\Models\BookCopy;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +17,7 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
-        $superAdmin = User::where('role_id', User::SUPER_ADMIN)->first();
+        $superAdmin = User::where('role_id', UserRole::SUPER_ADMIN)->first();
 
         for ($index = 0; $index < 30; $index++) {
             Book::factory()->create([

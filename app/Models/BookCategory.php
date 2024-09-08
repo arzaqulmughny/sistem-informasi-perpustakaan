@@ -10,5 +10,5 @@ class BookCategory extends Model
     use HasFactory;
 
     // Define unfillable columns
-    protected $guared = ['id'];
+    protected $guarded = ['id'];
 }

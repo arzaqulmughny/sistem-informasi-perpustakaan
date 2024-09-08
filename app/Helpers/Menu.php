@@ -27,6 +27,12 @@ class Menu
                     'link' => '/members',
                     'icon' => '<i class="fa fa-fw fa-user" aria-hidden="true"></i>'
                 ],
+                [
+                    'type' => 'single',
+                    'label' => 'Kategori Buku',
+                    'link' => '/book-categories',
+                    'icon' => '<i class="fa fa-fw fa-list" aria-hidden="true"></i>'
+                ],
             ]
         ],
         [

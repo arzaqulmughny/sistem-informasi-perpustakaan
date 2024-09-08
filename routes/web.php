@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopyController;
 use App\Http\Controllers\MemberController;
@@ -52,4 +53,7 @@ Route::middleware('auth')->group(function () {
 
     // Member
     Route::resource('/members', MemberController::class);
+
+    // Book Category
+    Route::resource('book-categories', BookCategoryController::class);
 });

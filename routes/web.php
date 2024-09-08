@@ -4,9 +4,11 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopyController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
+use App\Models\BookCopy;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/books/{book}/copies/create', [BookCopyController::class, 'create'])->name('copy.create');
     Route::post('/books/{book}/copies', [BookCopyController::class, 'store'])->name('copy.store');
     Route::delete('/books/{book}/copies/{copy}/delete', [BookCopyController::class, 'destroy'])->name('copy.delete');
+    Route::get('/ajax/copies', [BookCopyController::class, 'ajax_get'])->name('copies.ajax.get');
 
     // Member
     Route::resource('/members', MemberController::class);
@@ -62,7 +65,12 @@ Route::middleware('auth')->group(function () {
     // Staffs / Users
     Route::resource('staffs', StaffController::class);
 
+    // Profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
+    // Loan
+    Route::resource('loans', LoanController::class);
+    Route::get('/ajax/members', [MemberController::class, 'ajax_get'])->name('members.ajax.get');
 });

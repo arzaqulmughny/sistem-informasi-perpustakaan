@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBookCopyRequest;
 use App\Models\Book;
 use App\Models\BookCopy;
 use Exception;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -54,8 +55,25 @@ class BookCopyController extends Controller
             return redirect()->back()->with('success', 'Berhasil menghapus data');
         } catch (Exception $exception) {
             DB::rollBack();
-            
+
             return redirect()->back()->with('error', 'Terjadi kesalah pada server');
         }
+    }
+
+    /**
+     * Get data via ajx
+     */
+    public function ajax_get(Request $request)
+    {
+        $data = BookCopy::with('book')
+            ->when($request->search, function ($query, String $search) {
+                $query->where('code', 'LIKE', '%' . $search . '%')
+                    ->orWhereHas('book', function ($query) use ($search) {
+                        $query->where('title', 'LIKE', '%' . $search . '%');
+                    });
+            })
+            ->paginate(15);
+
+        return response()->json($data);
     }
 }

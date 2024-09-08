@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\BookCopy;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('book_copies', function (Blueprint $table) {
+        Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->integer('book_id');
-            $table->string('code');
-            $table->boolean('status')->default(BookCopy::AVAILABLE);
+            $table->integer('copy_id');
+            $table->integer('member_id');
+            $table->date('return_date'); // Y-m-d
             $table->integer('created_by');
+            $table->boolean('is_returned')->default(false);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('book_copies');
+        Schema::dropIfExists('loans');
     }
 };

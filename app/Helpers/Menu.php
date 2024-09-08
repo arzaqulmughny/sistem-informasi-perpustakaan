@@ -42,7 +42,7 @@ class Menu
                 [
                     'type' => 'single',
                     'label' => 'Peminjaman',
-                    'link' => '/loans',
+                    'link' => '/loans/create',
                     'icon' => '<i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i>'
                 ],
                 [

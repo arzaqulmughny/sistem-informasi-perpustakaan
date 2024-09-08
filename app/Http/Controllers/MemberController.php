@@ -6,6 +6,7 @@ use App\DataTables\MembersDataTable;
 use App\Http\Requests\StoreMemberRequest;
 use App\Models\Member;
 use Exception;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -131,5 +132,19 @@ class MemberController extends Controller
         } catch (Exception $exception) {
             return redirect()->back()->with('error', 'Gagal menghapus data');
         }
+    }
+
+    /**
+     * Get paginated data via ajax
+     */
+    public function ajax_get(Request $request)
+    {
+        $data = DB::table('members')
+                    ->when($request->search, function (Builder $query, String $search) {
+                        $query->where('name', 'LIKE', '%' . $search .'%');
+                    })
+                    ->paginate(15);
+
+        return response()->json($data);
     }
 }

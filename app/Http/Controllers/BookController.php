@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\BookCopyDataTable;
+use App\DataTables\BookCopiesDataTable;
 use App\DataTables\BooksDataTable;
 use App\Http\Requests\StoreBookRequest;
 use App\Models\Book;
@@ -23,7 +23,7 @@ class BookController extends Controller
     /**
      * Show book detail
      */
-    public function show(Book $book, BookCopyDataTable $dataTable)
+    public function show(Book $book, BookCopiesDataTable $dataTable)
     {
         return $dataTable->render('pages.books.show', [
             'data' => $book,
@@ -33,7 +33,7 @@ class BookController extends Controller
     /**
      * Show book detail
      */
-    public function edit(Book $book, BookCopyDataTable $dataTable)
+    public function edit(Book $book, BookCopiesDataTable $dataTable)
     {
         return $dataTable->render('pages.books.edit', [
             'data' => $book,

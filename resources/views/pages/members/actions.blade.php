@@ -7,12 +7,12 @@
         </svg> </button>
 
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="/books/{{ $model->id }}">Lihat</a>
-        <a class="dropdown-item" href="/books/{{ $model->id }}/edit">Ubah</a>
+        <a class="dropdown-item" href="/members/{{ $model->id }}">Lihat</a>
+        <a class="dropdown-item" href="/members/{{ $model->id }}/edit">Ubah</a>
 
-        <button type="button" class="dropdown-item" onClick="onDelete(event)">Hapus</button>
+        <button type="button" class="dropdown-item" onClick="onDeleteMember(event)">Hapus</button>
 
-        <form method="POST" action="{{ url()->route('book.delete', $model->id) }}" data-for="DELETE">
+        <form method="POST" action="{{ url()->route('members.destroy', $model->id) }}" data-for="DELETE">
             @method('DELETE')
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         </form>

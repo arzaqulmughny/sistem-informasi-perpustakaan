@@ -23,8 +23,8 @@ class Menu
                 ],
                 [
                     'type' => 'single',
-                    'label' => 'Pengunjung',
-                    'link' => '/visitors',
+                    'label' => 'Anggota',
+                    'link' => '/members',
                     'icon' => '<i class="fa fa-fw fa-user" aria-hidden="true"></i>'
                 ],
             ]

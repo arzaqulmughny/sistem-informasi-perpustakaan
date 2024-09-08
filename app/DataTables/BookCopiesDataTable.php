@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class BookCopyDataTable extends DataTable
+class BookCopiesDataTable extends DataTable
 {
     /**
      * Build the DataTable class.

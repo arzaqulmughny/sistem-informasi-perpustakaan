@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopyController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,4 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/books/{book}/copies/create', [BookCopyController::class, 'create'])->name('copy.create');
     Route::post('/books/{book}/copies', [BookCopyController::class, 'store'])->name('copy.store');
     Route::delete('/books/{book}/copies/{copy}/delete', [BookCopyController::class, 'destroy'])->name('copy.delete');
+
+    // Member
+    Route::resource('/members', MemberController::class);
 });

@@ -26,7 +26,7 @@ class BooksDataTable extends DataTable
                 return $row->copies->count();
             })
             ->editColumn('category_id', function ($row) {
-                return $row->category->name;
+                return $row->category->name ?? '';
             })
             ->addColumn('actions', 'pages.books.actions')
             ->rawColumns(['actions'])

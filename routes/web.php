@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookCopyController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
@@ -27,10 +28,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'authenticate'])->name('authenticate');
-
-    // Route::get('/register', function () {
-    //     return view('register.index');
-    // });
 });
 
 
@@ -38,9 +35,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
-    Route::get('/', function () {
-        return view('index');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Books
     Route::get('/books', [BookController::class, 'index'])->name('book.index');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\LoanDataTable;
 use App\Http\Requests\StoreLoansRequest;
 use App\Models\BookCopy;
 use App\Models\Loan;
@@ -14,9 +15,9 @@ class LoanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(LoanDataTable $dataTable)
     {
-        //
+        return $dataTable->render('pages.loans.index');
     }
 
     /**

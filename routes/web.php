@@ -7,6 +7,7 @@ use App\Http\Controllers\BookCopyController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\StaffController;
 use App\Models\BookCopy;
 use Illuminate\Support\Facades\Route;
@@ -73,4 +74,7 @@ Route::middleware('auth')->group(function () {
     // Loan
     Route::resource('loans', LoanController::class);
     Route::get('/ajax/members', [MemberController::class, 'ajax_get'])->name('members.ajax.get');
+
+    // Return
+    Route::resource('returns', ReturnController::class);
 });

@@ -1,21 +1,32 @@
 @extends('template')
 
-@section('title', 'Peminjaman Buku')
+@section('title', $pageTitle)
 
 @section('content')
     <div class="container-fluid">
         @include('partials.alert')
 
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h4 mb-0 text-gray-800">Peminjaman Buku</h1>
+            <h1 class="h4 mb-0 text-gray-800">{{ $pageTitle }}</h1>
         </div>
 
-        <form id="loan-form" method="POST" action="{{ route('loans.store') }}">
+        <form id="return-form" method="POST" action="{{ route('returns.store') }}">
             @csrf
             <div class="card p-4">
                 <div class="form-group">
                     <label for="member_id">Anggota</label>
-                    <select id="member_id" class="js-example-basic-single js-states form-control" name="member_id"></select>
+                    <select id="member_id" class="js-example-basic-single js-states form-control" name="member_id">
+                        @if (request()->get('member_id'))
+                            @php
+                                $member = \App\Models\Member::find(request()->get('member_id'));
+                            @endphp
+
+                            @if ($member)
+                                <option value="{{ request()->get('member_id') }}">
+                                    {{ @\App\Models\Member::find(request()->get('member_id'))->name }}</option>
+                            @endif
+                        @endif
+                    </select>
 
                     @error('member_id')
                         <div class="d-block invalid-feedback">
@@ -25,8 +36,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="copy_id">Buku</label>
-                    <select id="copy_id" class="js-example-basic-single js-states form-control" name="copy_id"></select>
+                    <label for="copy_id">Salinan</label>
+                    <select id="copy_id" class="js-example-basic-single js-states form-control" name="copy_id">
+                        @if (request()->get('copy_code'))
+                            @php
+                                $copy = \App\Models\BookCopy::where('code', request()->get('copy_code'))->first();
+                            @endphp
+
+                            @if ($copy)
+                                <option value="{{ $copy->id }}">
+                                    {{ $copy->book->title . ' - ' . $copy->code }}</option>
+                            @endif
+                        @endif
+                    </select>
 
                     @error('copy_id')
                         <div class="d-block invalid-feedback">
@@ -36,10 +58,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="return_date">Tanggal Pengembalian</label>
-                    <input type="date" class="form-control" name="return_date" />
+                    <label for="updated_at">Tanggal Pengembalian</label>
+                    <input type="date" class="form-control" name="updated_at" value="{{ date('Y-m-d') }}" />
 
-                    @error('return_date')
+                    @error('updated_at')
                         <div class="d-block invalid-feedback">
                             {{ $message }}
                         </div>
@@ -48,7 +70,7 @@
             </div>
 
             <div class="d-flex justify-content-end mt-4">
-                <button type="button" onClick="onSubmitBookLoan()" class="btn btn-primary">Buat</a>
+                <button type="button" onClick="onSubmitReturnBook()" class="btn btn-primary">Simpan Pengembalian</a>
             </div>
         </form>
     </div>
@@ -65,6 +87,7 @@
         $(document).ready(function() {
             $('#member_id').select2({
                 placeholder: 'Pilih Anggota',
+                initSelection: 1,
                 ajax: {
                     url: "{{ route('members.ajax.get') }}",
                     dataType: 'json',
@@ -85,12 +108,12 @@
                                 more: data.last_page > data.current_page
                             }
                         };
-                    }
+                    },
                 },
             });
 
             $('#copy_id').select2({
-                placeholder: 'Pilih Buku',
+                placeholder: 'Kode Salinan',
                 ajax: {
                     url: "{{ route('copies.ajax.get') }}",
                     dataType: 'json',
@@ -116,7 +139,7 @@
             });
         });
 
-        const onSubmitBookLoan = async (event) => {
+        const onSubmitReturnBook = async (event) => {
             const {
                 isConfirmed
             } = await Swal.fire({
@@ -126,7 +149,7 @@
             })
 
             if (isConfirmed) {
-                const form = document.getElementById('loan-form')
+                const form = document.getElementById('return-form')
                 form.submit();
             }
         }

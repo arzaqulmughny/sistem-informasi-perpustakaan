@@ -30,12 +30,17 @@ class LoanDataTable extends DataTable
                 return $loan->book->title ?? 'Buku Tidak Ditemukan';
             })
             ->editColumn('is_returned', function (Loan $loan) {
+                if ($loan->is_returned) {
+                    return '<span class="badge badge-success">Sudah dikembalikan</span>';
+                }
+
                 return $loan->is_need_return ? '<span class="badge badge-danger">Belum dikembalikan</span>' : '';
             })
             ->editColumn('copy_id', function (Loan $loan) {
                 return $loan->copy->code ?? 'Copy Tidak Ditemukan';
             })
-            ->rawColumns(['is_returned', 'action'])
+            ->editColumn('actions', 'pages.loans.actions')
+            ->rawColumns(['is_returned', 'actions'])
             ->addIndexColumn()
             ->setRowId('id');
     }
@@ -82,6 +87,7 @@ class LoanDataTable extends DataTable
             'copy_id' => ['title' => 'Kode Salinan'],
             'return_date' => ['title' => 'Tgl. Kembali'],
             'is_returned' => ['title' => 'Status'],
+            'actions' => ['title' => ''],
         ];
     }
 

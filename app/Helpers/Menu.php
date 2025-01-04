@@ -41,34 +41,22 @@ class Menu
             'links' => [
                 [
                     'type' => 'single',
-                    'label' => 'Peminjaman',
+                    'label' => 'Tambah Peminjaman',
                     'link' => '/loans/create',
                     'icon' => '<i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i>'
                 ],
                 [
                     'type' => 'single',
-                    'label' => 'Pengembalian',
-                    'link' => '/returns',
+                    'label' => 'Tambah Pengembalian',
+                    'link' => '/returns/create',
                     'icon' => '<i class="fa fa-fw fa-arrow-left" aria-hidden="true"></i>'
                 ],
-            ]
-        ],
-        [
-            'type' => 'group',
-            'label' => 'Laporan',
-            'links' => [
                 [
                     'type' => 'single',
-                    'label' => 'Peminjaman',
-                    'link' => '/loans-report',
+                    'label' => 'Daftar Peminjaman',
+                    'link' => '/loans',
                     'icon' => '<i class="fa fa-fw fa-calendar" aria-hidden="true"></i>'
-                ],
-                [
-                    'type' => 'single',
-                    'label' => 'Statistik Buku',
-                    'link' => '/books-report',
-                    'icon' => '<i class="fa fa-fw fa-history" aria-hidden="true"></i>'
-                ],
+                ]
             ]
         ],
         [

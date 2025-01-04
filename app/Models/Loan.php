@@ -44,6 +44,10 @@ class Loan extends Model
      */
     public function getIsNeedReturnAttribute()
     {
+        if ($this->is_returned) {
+            return false;
+        }
+
         return $this->return_date < now();
     }
 

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\DataTables\BookCopiesDataTable;
 use App\DataTables\BooksDataTable;
 use App\Http\Requests\StoreBookRequest;
+use App\Imports\BooksImport;
 use App\Models\Book;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookController extends Controller
 {
@@ -67,7 +69,7 @@ class BookController extends Controller
             return redirect()->route('book.show', $book->id)->with('success', 'Data berhasil ditambahkan');
         } catch (Exception $exception) {
             DB::rollBack();
-            
+
             return redirect()->route('book.index')->with('error', 'Terjadi kesalahan pada server');
         }
 
@@ -85,7 +87,7 @@ class BookController extends Controller
         try {
             DB::beginTransaction();
             $book->update($data);
-            
+
             DB::commit();
             return redirect()->route('book.show', $book->id)->with('success', 'Berhasil memperbarui data');
         } catch (Exception $exception) {
@@ -111,6 +113,25 @@ class BookController extends Controller
         } catch (Exception $exception) {
             return redirect()->back('book.index')->with('success', 'Terjadi kesalahan pada server');
         }
+    }
 
+    /**
+     * Import data from excel
+     */
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx',
+        ]);
+
+        $file = $request->file('file');
+
+        try {
+            Excel::import(new BooksImport, $file);
+            return redirect()->back()->with('success', 'Berhasil mengimport data');
+        } catch (Exception $exception) {
+            dd($exception);
+            return redirect()->back()->with('error', 'Terjadi kesalahan pada server');
+        }
     }
 }

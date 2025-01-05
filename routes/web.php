@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => 'role:staff|developer'], function () {
         // Books
+        Route::post('/books/import', [BookController::class, 'import'])->name('books.import');
         Route::get('/books', [BookController::class, 'index'])->name('book.index');
         Route::post('/books', [BookController::class, 'store'])->name('book.store');
         Route::put('/books/{book}/update', [BookController::class, 'update'])->name('book.update');

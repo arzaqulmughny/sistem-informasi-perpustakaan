@@ -10,7 +10,7 @@
         <a class="dropdown-item" href="/books/{{ $model->id }}">Lihat</a>
         <a class="dropdown-item" href="/books/{{ $model->id }}/edit">Ubah</a>
 
-        <button type="button" class="dropdown-item" onClick="onDelete(event)">Hapus</button>
+        <button type="button" class="dropdown-item" onClick="onDeleteBook(event)">Hapus</button>
 
         <form method="POST" action="{{ url()->route('book.delete', $model->id) }}" data-for="DELETE">
             @method('DELETE')

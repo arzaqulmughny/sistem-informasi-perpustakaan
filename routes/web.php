@@ -9,6 +9,7 @@ use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReturnController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StaffController;
 use App\Models\BookCopy;
 use Illuminate\Support\Facades\Route;
@@ -72,4 +73,7 @@ Route::middleware('auth')->group(function () {
 
     // Return
     Route::resource('returns', ReturnController::class);
+
+    // Setting
+    Route::resource('/settings', SettingController::class);
 });

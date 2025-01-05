@@ -71,8 +71,14 @@ class Menu
                 ],
                 [
                     'type' => 'single',
-                    'label' => 'Pengaturan Aplikasi',
-                    'link' => '/app-settings',
+                    'label' => 'Pengaturan Perpustakaan',
+                    'link' => '/settings?type=library',
+                    'icon' => '<i class="fa fa-fw fa-cog"></i>'
+                ],
+                [
+                    'type' => 'single',
+                    'label' => 'Pengaturan Sistem',
+                    'link' => '/settings?type=system',
                     'icon' => '<i class="fa fa-fw fa-cog"></i>'
                 ],
             ]

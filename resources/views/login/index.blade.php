@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link rel="shortcut icon" href="{{ '/img/' . getSetting('app_icon') }}" type="image/x-icon">
+
     <style>
         @media screen and (max-width: 1080px) {
             .login {

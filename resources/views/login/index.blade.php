@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ $pageTitle }}</title>
+    <title>{{ $pageTitle . ' - ' . getSetting('app_name') }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,18 +19,38 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        @media screen and (max-width: 1080px) {
+            .login {
+                flex-direction: column;
+                height: fit-content !important;
+                margin-inline: 20px;
+                align-items: center;
+            }
+
+            .login__left {
+                width: 100% !important;
+                height: 100px !important;
+            }
+
+            .login__right {
+                width: 100% !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="d-flex justify-content-center align-items-center" style="height: 100vh">
-        <div class="bg-white shadow-lg d-flex rounded-lg overflow-hidden"
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh; opacity: 0" id="content">
+        <div class="bg-white shadow-lg d-flex rounded-lg overflow-hidden login"
             style="max-width: 1000px; height: 350px; width: 100%;">
-            <div style="width: 50%; height: 100%">
+            <div style="width: 50%; height: 100%" class="login__left">
                 <img src="{{ '/img/' . getSetting('app_cover') }}" alt=""
                     style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
             </div>
 
-            <div class="d-flex flex-column justify-content-center align-items-center px-5"
+            <div class="d-flex flex-column justify-content-center align-items-center px-5 py-5 login__right"
                 style="width: 50%; height: 100%; gap: 20px;">
                 <div style="width: 40px; aspect-ratio: 1;">
                     <img src="{{ '/img/' . getSetting('app_icon') }}" alt=""
@@ -38,12 +58,9 @@
                 </div>
                 <h1 class="text-center h5">{{ getSetting('app_name') }}</h1>
 
-                <button id="show-login-button" type="button" class="btn btn-primary btn-sm"
-                    onclick="showLogin()">Masuk</button>
-
 
                 <form action="{{ route('authenticate') }}" method="POST" class="d-flex flex-column" id="login-form"
-                    style="display: none !important; width: 100%;">
+                    style="width: 100%;">
                     @csrf
                     <div class="form-group">
                         <input type="text" name='email'
@@ -88,14 +105,11 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <script>
-        /**
-         * Show login
-         **/
-        const showLogin = () => {
-            $("#show-login-button").fadeOut();
-
-            $('#login-form').delay(500).fadeIn(300).css('display', 'flex !important');
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            $("#content").animate({
+                opacity: 1
+            }, 800);
+        })
     </script>
 </body>
 

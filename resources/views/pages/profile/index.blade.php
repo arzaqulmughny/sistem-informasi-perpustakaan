@@ -1,5 +1,5 @@
 @extends('template')
-@section('title', "Pengaturan Akun")
+@section('title', 'Pengaturan Akun')
 
 @section('content')
     <div class="container-fluid">
@@ -54,9 +54,8 @@
                 <div class="form-group">
                     <label for="profile_picture">Foto</label>
                     <div class="d-flex flex-column" style="gap: 10px;">
-                        <img src="{{ $user->profile_picture ? '/storage/' . $user->profile_picture : '' }}"
-                            id="profile_picture-preview" alt=""
-                            style="width: 150px; aspect-ratio: 2/3; border: 1px solid black;">
+                        <img src="{{ getProfilePicture() }}" id="profile_picture-preview" alt=""
+                            style="width: 150px; aspect-ratio: 2/3; border: 1px solid black; object-fit: cover">
 
                         <input type="file" class="form-control @error('profile_picture') is-invalid @enderror"
                             id="profile_picture" name="profile_picture" onChange="onChangeProfilePicture(event)">
@@ -78,7 +77,7 @@
 
         <hr>
 
-         <div class="d-sm-flex align-items-center justify-content-between mb-3">
+        <div class="d-sm-flex align-items-center justify-content-between mb-3">
             <div>
                 <h1 class="h4 mb-0 text--black">Ubah Kata Sandi</h1>
             </div>
@@ -90,8 +89,8 @@
             <div class="card p-4">
                 <div class="form-group">
                     <label for="current_password">Kata Sandi Sekarang</label>
-                    <input type="password" class="form-control @error('current_password') is-invalid @enderror" id="current_password"
-                        placeholder="Masukkan Kata Sandi Sekarang" name="current_password">
+                    <input type="password" class="form-control @error('current_password') is-invalid @enderror"
+                        id="current_password" placeholder="Masukkan Kata Sandi Sekarang" name="current_password">
 
                     @error('current_password')
                         <div class="d-block invalid-feedback">
@@ -102,8 +101,8 @@
 
                 <div class="form-group">
                     <label for="new_password">Kata Sandi Baru</label>
-                    <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password"
-                        placeholder="Masukkan Kata Sandi Baru" name="new_password">
+                    <input type="password" class="form-control @error('new_password') is-invalid @enderror"
+                        id="new_password" placeholder="Masukkan Kata Sandi Baru" name="new_password">
 
                     @error('new_password')
                         <div class="d-block invalid-feedback">
@@ -114,8 +113,8 @@
 
                 <div class="form-group">
                     <label for="repeat_new_password">Ulangi</label>
-                    <input type="password" class="form-control @error('repeat_new_password') is-invalid @enderror" id="repeat_new_password"
-                        placeholder="Ulangi Kata Sandi Baru" name="repeat_new_password">
+                    <input type="password" class="form-control @error('repeat_new_password') is-invalid @enderror"
+                        id="repeat_new_password" placeholder="Ulangi Kata Sandi Baru" name="repeat_new_password">
 
                     @error('repeat_new_password')
                         <div class="d-block invalid-feedback">

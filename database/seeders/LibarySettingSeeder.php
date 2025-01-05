@@ -33,6 +33,13 @@ class LibarySettingSeeder extends Seeder
                 'description' => 'Maksimal buku yang dapat dipinjam per anggota. 0 untuk tak terbatas.',
                 'type' => Setting::LIBRARY_TYPE
             ],
+            [
+                'key' => 'loan_must_visitor',
+                'default_value' => 1,
+                'name' => 'Pinjam buku harus melakukan tercatat pada kunjungan',
+                'description' => 'Jika ini diaktifkan, anggota harus tercatat pada kunjungan terlebih dahulu. Jika di nonaktifkan, anggota dapat langsung meminjam buku. 0 untuk tidak dan 1 untuk ya.',
+                'type' => Setting::LIBRARY_TYPE
+            ],
         ];
 
         foreach ($settings as $setting) {

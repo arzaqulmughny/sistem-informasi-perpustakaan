@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\VisitController;
 use App\Models\BookCopy;
 use Illuminate\Support\Facades\Route;
 
@@ -76,4 +77,7 @@ Route::middleware('auth')->group(function () {
 
     // Setting
     Route::resource('/settings', SettingController::class);
+
+    // Visit
+    Route::resource('/visits', VisitController::class);
 });

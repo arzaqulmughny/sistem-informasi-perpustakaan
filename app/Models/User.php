@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    
+
     // Define unfillable columsn
     protected $guarded = ['id'];
 
@@ -43,5 +44,13 @@ class User extends Authenticatable
     public function role(): HasOne
     {
         return $this->hasOne(UserRole::class, 'id', 'role_id');
+    }
+
+    /**
+     * Get member visit
+     */
+    public function visits(): HasMany
+    {
+        return $this->hasMany(Visit::class, 'member_id', 'id');
     }
 }

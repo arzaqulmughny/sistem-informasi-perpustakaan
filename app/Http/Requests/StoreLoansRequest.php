@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Member;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class StoreLoansRequest extends FormRequest
 {
@@ -25,6 +27,23 @@ class StoreLoansRequest extends FormRequest
             'member_id' => 'required|exists:members,id',
             'copy_id' => 'required|exists:book_copies,id,status,1',
             'return_date' => 'required|date'
+        ];
+    }
+
+    /**
+     * Get the "after" validation callables for the request.
+     */
+    public function after(): array
+    {
+        return [
+            function (Validator $validator) {
+                if (getSetting('loan_must_visitor') == 1 && !Member::find($this->member_id)->hasVisited) {
+                    $validator->errors()->add(
+                        'member_id',
+                        'Anggota harus tercatat pada kunjungan terlebih dahulu'
+                    );
+                }
+            }
         ];
     }
 }

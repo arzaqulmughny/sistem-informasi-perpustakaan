@@ -11,4 +11,13 @@ class Member extends Model
 
     // Define unfillable columns
     protected $guarded = ['id'];
+
+    /**
+     * Check is user already visited
+     */
+    public function getHasVisitedAttribute()
+    {
+        return Visit::where('member_id', $this->id)->whereDate('created_at', now()->toDateString())
+            ->exists();
+    }
 }

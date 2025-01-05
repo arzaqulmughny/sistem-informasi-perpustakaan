@@ -41,6 +41,12 @@ class Menu
             'links' => [
                 [
                     'type' => 'single',
+                    'label' => 'Kunjungan',
+                    'link' => '/visits/create',
+                    'icon' => '<i class="fa fa-check" aria-hidden="true"></i>'
+                ],
+                [
+                    'type' => 'single',
                     'label' => 'Tambah Peminjaman',
                     'link' => '/loans/create',
                     'icon' => '<i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i>'
@@ -55,6 +61,12 @@ class Menu
                     'type' => 'single',
                     'label' => 'Daftar Peminjaman',
                     'link' => '/loans',
+                    'icon' => '<i class="fa fa-fw fa-calendar" aria-hidden="true"></i>'
+                ],
+                [
+                    'type' => 'single',
+                    'label' => 'Daftar Kunjungan',
+                    'link' => '/visits',
                     'icon' => '<i class="fa fa-fw fa-calendar" aria-hidden="true"></i>'
                 ]
             ]

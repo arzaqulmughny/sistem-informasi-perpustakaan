@@ -18,7 +18,8 @@ class MemberController extends Controller
      */
     public function index(MembersDataTable $dataTable)
     {
-        return $dataTable->render('pages.members.index');
+        $pageTitle = 'Data Anggota';
+        return $dataTable->render('pages.members.index', compact('pageTitle'));
     }
 
     /**

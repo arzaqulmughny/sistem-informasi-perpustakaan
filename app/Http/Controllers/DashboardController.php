@@ -73,6 +73,7 @@ class DashboardController extends Controller
             'visit_labels' => $days,
         ]);
 
-        return view('index', compact('data'));
+        $pageTitle = 'Dashboard';
+        return view('index', compact('data', 'pageTitle'));
     }
 }

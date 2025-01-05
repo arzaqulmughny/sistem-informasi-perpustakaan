@@ -18,9 +18,9 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        return view('pages.profile.index', [
-            'user' => $request->user(),
-        ]);
+        $pageTitle = 'Pengaturan Akun';
+        $user = auth()->user();
+        return view('pages.profile.index', compact('user', 'pageTitle'));
     }
 
     /**

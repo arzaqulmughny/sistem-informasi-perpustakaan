@@ -1,12 +1,11 @@
 @extends('template')
-@section('title', 'Tambah Staff')
 
 @section('content')
     <div class="container-fluid">
         @include('partials.alert')
 
         <div>
-            <h1 class="h4 mb-0 text--black">Tambah Staff</h1>
+            <h1 class="h4 mb-0 text--black">{{ $pageTitle }}</h1>
             <p class="text--black">Harap isi data yang diperlukan.</p>
         </div>
 

@@ -1,6 +1,6 @@
-<footer class="sticky-footer py-2">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="copyright text-center">
             <span>Created by Arzaqul Mughny</span>
         </div>
     </div>

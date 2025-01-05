@@ -1,7 +1,5 @@
 @extends('template')
 
-@section('title', $pageTitle)
-
 @section('content')
     <div class="container-fluid">
         @include('partials.alert')

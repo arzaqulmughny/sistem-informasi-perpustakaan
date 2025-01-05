@@ -17,7 +17,8 @@ class LoanController extends Controller
      */
     public function index(LoanDataTable $dataTable)
     {
-        return $dataTable->render('pages.loans.index');
+        $pageTitle = 'Data Peminjaman';
+        return $dataTable->render('pages.loans.index', compact('pageTitle'));
     }
 
     /**
@@ -25,7 +26,8 @@ class LoanController extends Controller
      */
     public function create()
     {
-        return view('pages.loans.create');
+        $pageTitle = 'Tambah Peminjaman';
+        return view('pages.loans.create', compact('pageTitle'));
     }
 
     /**

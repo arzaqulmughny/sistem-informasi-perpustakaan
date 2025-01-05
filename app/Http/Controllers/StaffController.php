@@ -18,7 +18,8 @@ class StaffController extends Controller
      */
     public function index(StaffsDataTable $dataTable)
     {
-        return $dataTable->render('pages.staffs.index');
+        $pageTitle = 'Data Staff';
+        return $dataTable->render('pages.staffs.index', compact('pageTitle'));
     }
 
     /**
@@ -26,7 +27,8 @@ class StaffController extends Controller
      */
     public function create()
     {
-        return view('pages.staffs.create');
+        $pageTitle = 'Tambah Staff';
+        return view('pages.staffs.create', compact('pageTitle'));
     }
 
     /**

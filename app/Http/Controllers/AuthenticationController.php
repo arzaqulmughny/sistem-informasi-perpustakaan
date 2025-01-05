@@ -14,7 +14,8 @@ class AuthenticationController extends Controller
      */
     public function index()
     {
-        return view('login.index');
+        $pageTitle = 'Login';
+        return view('login.index', compact('pageTitle'));
     }
 
     /**
@@ -44,7 +45,7 @@ class AuthenticationController extends Controller
         $request->session()->flush();
         $request->session()->invalidate();
         $request->session()->regenerate();
-     
+
         return redirect('/');
     }
 }

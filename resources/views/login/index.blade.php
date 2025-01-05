@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login</title>
+    <title>{{ $pageTitle }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,66 +19,60 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
 
-<body class="bg-gradient-primary">
-    <div class="container">
+<body>
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh">
+        <div class="bg-white shadow-lg d-flex rounded-lg overflow-hidden"
+            style="max-width: 1000px; height: 350px; width: 100%;">
+            <div style="width: 50%; height: 100%">
+                <img src="{{ '/img/' . getSetting('app_cover') }}" alt=""
+                    style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+            </div>
 
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-12 col-md-9">
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block" style="overflow: hidden; padding: 0px;">
-                                <img src="{{ '/img/' . getSetting('app_cover') }}" alt=""
-                                    style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">{{ getSetting('app_name') }}</h1>
-                                    </div>
-
-                                    <form action="{{ route('authenticate') }}" method="POST" class="user">
-                                        @csrf
-
-                                        <div class="form-group">
-                                            <input type="email" name='email'
-                                                class="form-control form-control-user @error('email') is-invalid @enderror"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Alamat Email">
-
-                                            @error('email')
-                                                <div class="invalid-feedback d-block">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" name='password'
-                                                class="form-control form-control-user @error('password') is-invalid @enderror"
-                                                id="exampleInputPassword" placeholder="Kata Sandi">
-
-                                            @error('password')
-                                                <div class="invalid-feedback d-block">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Masuk
-                                        </button>
-                                        <hr>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="d-flex flex-column justify-content-center align-items-center px-5"
+                style="width: 50%; height: 100%; gap: 20px;">
+                <div style="width: 40px; aspect-ratio: 1;">
+                    <img src="{{ '/img/' . getSetting('app_icon') }}" alt=""
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: center">
                 </div>
+                <h1 class="text-center h5">{{ getSetting('app_name') }}</h1>
+
+                <button id="show-login-button" type="button" class="btn btn-primary btn-sm"
+                    onclick="showLogin()">Masuk</button>
+
+
+                <form action="{{ route('authenticate') }}" method="POST" class="d-flex flex-column" id="login-form"
+                    style="display: none !important; width: 100%;">
+                    @csrf
+                    <div class="form-group">
+                        <input type="text" name='email'
+                            class="form-control form-control-user @error('email') is-invalid @enderror"
+                            id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email">
+
+                        @error('email')
+                            <div class="invalid-feedback d-block">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name='password'
+                            class="form-control form-control-user @error('password') is-invalid @enderror"
+                            id="exampleInputPassword" placeholder="Kata Sandi">
+
+                        @error('password')
+                            <div class="invalid-feedback d-block">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        Masuk
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -92,6 +86,17 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script>
+        /**
+         * Show login
+         **/
+        const showLogin = () => {
+            $("#show-login-button").fadeOut();
+
+            $('#login-form').delay(500).fadeIn(300).css('display', 'flex !important');
+        }
+    </script>
 </body>
 
 </html>

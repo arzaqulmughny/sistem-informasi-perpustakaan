@@ -16,7 +16,8 @@ class BookCategoryController extends Controller
      */
     public function index(BookCategoriesDataTable $dataTable)
     {
-        return $dataTable->render('pages.book-categories.index');
+        $pageTitle = 'Data Kategori Buku';
+        return $dataTable->render('pages.book-categories.index', compact('pageTitle'));
     }
 
     /**

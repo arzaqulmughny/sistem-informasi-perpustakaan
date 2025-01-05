@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>@yield('title')</title>
+    <title>@yield('title', $pageTitle . ' - ' . getSetting('app_name'))</title>
     <link rel="shortcut icon" href="/img/{{ getSetting('app_icon') }}" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
@@ -40,11 +40,12 @@
     <div id="wrapper">
         @include('partials.sidebar')
         <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
+            <div>
                 @include('partials.topbar')
-                @yield('content')
+                <div id="content" style="opacity: 0; min-height: 100vh">
+                    @yield('content')
+                </div>
             </div>
-            @include('partials.footer')
         </div>
     </div>
     @include('partials.scroll-to-up')
@@ -73,6 +74,14 @@
 
 
     @stack('scripts')
+
+    <script>
+        $(document).ready(function() {
+            $("#content").animate({
+                opacity: 1
+            }, 800);
+        })
+    </script>
 </body>
 
 </html>

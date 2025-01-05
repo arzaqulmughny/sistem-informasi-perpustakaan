@@ -1,5 +1,4 @@
 @extends('template')
-@section('title', 'Pengaturan Akun')
 
 @section('content')
     <div class="container-fluid">
@@ -7,7 +6,7 @@
 
         <div class="d-sm-flex align-items-center justify-content-between mb-3">
             <div>
-                <h1 class="h4 mb-0 text--black">Pengaturan</h1>
+                <h1 class="h4 mb-0 text--black">{{ $pageTitle }}</h1>
             </div>
         </div>
 

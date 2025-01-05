@@ -19,7 +19,8 @@ class BookController extends Controller
      */
     public function index(BooksDataTable $dataTable, Request $request)
     {
-        return $dataTable->render('pages.books.index');
+        $pageTitle = 'Data Buku';
+        return $dataTable->render('pages.books.index', compact('pageTitle'));
     }
 
     /**

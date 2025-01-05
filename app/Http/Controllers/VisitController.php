@@ -15,7 +15,7 @@ class VisitController extends Controller
      */
     public function index(VisitsDataTable $dataTable)
     {
-        $pageTitle = 'Kunjungan';
+        $pageTitle = 'Data Kunjungan';
         return $dataTable->render('pages.visits.index', compact('pageTitle'));
     }
 

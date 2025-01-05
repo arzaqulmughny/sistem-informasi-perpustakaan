@@ -10,14 +10,25 @@
             <h1 class="h4 mb-0 text-gray-800">Data Buku</h1>
 
             <div class="d-flex">
-                <button class="btn btn-primary mr-2" type="button" data-toggle="modal" data-target="#book-import-modal"><i
-                        class="fa fa-file-import mr-2" aria-hidden="true"></i> Import</button>
+                <div class="btn-group mr-2">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="fa fa-file-import mr-2" aria-hidden="true"></i> Import </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" data-toggle="modal" data-target="#book-import-modal"
+                            href="#">Buku</a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#book-copy-import-modal"
+                            href="#">Salinan</a>
+                    </div>
+                </div>
+
                 <a href="/books/create" class="btn btn-primary">+ Tambah</a>
             </div>
         </div>
 
         @include('pages.books.table')
         @include('pages.books.import_modal')
+        @include('pages.books.import_copy_modal')
     </div>
 @endsection
 

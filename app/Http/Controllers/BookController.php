@@ -130,8 +130,7 @@ class BookController extends Controller
             Excel::import(new BooksImport, $file);
             return redirect()->back()->with('success', 'Berhasil mengimport data');
         } catch (Exception $exception) {
-            dd($exception);
-            return redirect()->back()->with('error', 'Terjadi kesalahan pada server');
+            return redirect()->back()->with('error', $exception->getMessage());
         }
     }
 }

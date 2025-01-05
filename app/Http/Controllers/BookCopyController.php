@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookCopyRequest;
+use App\Imports\BookCopiesImport;
 use App\Models\Book;
 use App\Models\BookCopy;
 use Exception;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookCopyController extends Controller
 {
@@ -75,5 +77,24 @@ class BookCopyController extends Controller
             ->paginate(15);
 
         return response()->json($data);
+    }
+
+    /**
+     * Import data from excel
+     */
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx',
+        ]);
+
+        $file = $request->file('file');
+
+        try {
+            Excel::import(new BookCopiesImport, $file);
+            return redirect()->back()->with('success', 'Berhasil mengimport data');
+        } catch (Exception $exception) {
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
     }
 }

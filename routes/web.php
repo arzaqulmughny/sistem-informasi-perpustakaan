@@ -39,45 +39,50 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Books
-    Route::get('/books', [BookController::class, 'index'])->name('book.index');
-    Route::post('/books', [BookController::class, 'store'])->name('book.store');
-    Route::put('/books/{book}/update', [BookController::class, 'update'])->name('book.update');
-    Route::get('/books/create', [BookController::class, 'create']);
-    Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
-    Route::delete('/books/{book}/delete', [BookController::class, 'destroy'])->name('book.delete');
-    Route::get('/books/{book}', [BookController::class, 'show'])->name('book.show');
+    Route::group(['middleware' => 'role:staff|developer'], function () {
+        // Books
+        Route::get('/books', [BookController::class, 'index'])->name('book.index');
+        Route::post('/books', [BookController::class, 'store'])->name('book.store');
+        Route::put('/books/{book}/update', [BookController::class, 'update'])->name('book.update');
+        Route::get('/books/create', [BookController::class, 'create']);
+        Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
+        Route::delete('/books/{book}/delete', [BookController::class, 'destroy'])->name('book.delete');
+        Route::get('/books/{book}', [BookController::class, 'show'])->name('book.show');
 
-    // Book Copy
-    Route::get('/books/{book}/copies/create', [BookCopyController::class, 'create'])->name('copy.create');
-    Route::post('/books/{book}/copies', [BookCopyController::class, 'store'])->name('copy.store');
-    Route::delete('/books/{book}/copies/{copy}/delete', [BookCopyController::class, 'destroy'])->name('copy.delete');
-    Route::get('/ajax/copies', [BookCopyController::class, 'ajax_get'])->name('copies.ajax.get');
+        // Book Copy
+        Route::get('/books/{book}/copies/create', [BookCopyController::class, 'create'])->name('copy.create');
+        Route::post('/books/{book}/copies', [BookCopyController::class, 'store'])->name('copy.store');
+        Route::delete('/books/{book}/copies/{copy}/delete', [BookCopyController::class, 'destroy'])->name('copy.delete');
+        Route::get('/ajax/copies', [BookCopyController::class, 'ajax_get'])->name('copies.ajax.get');
 
-    // Member
-    Route::resource('/members', MemberController::class);
+        // Member
+        Route::resource('/members', MemberController::class);
 
-    // Book Category
-    Route::resource('book-categories', BookCategoryController::class);
+        // Book Category
+        Route::resource('book-categories', BookCategoryController::class);
 
-    // Staffs / Users
-    Route::resource('staffs', StaffController::class);
+        // Profile
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
 
-    // Profile
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::put('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+        // Loan
+        Route::resource('loans', LoanController::class);
+        Route::get('/ajax/members', [MemberController::class, 'ajax_get'])->name('members.ajax.get');
 
-    // Loan
-    Route::resource('loans', LoanController::class);
-    Route::get('/ajax/members', [MemberController::class, 'ajax_get'])->name('members.ajax.get');
+        // Return
+        Route::resource('returns', ReturnController::class);
 
-    // Return
-    Route::resource('returns', ReturnController::class);
+        // Visit
+        Route::resource('/visits', VisitController::class);
+    });
 
-    // Setting
-    Route::resource('/settings', SettingController::class);
 
-    // Visit
-    Route::resource('/visits', VisitController::class);
+    Route::group(['middleware' => 'role:admin|developer'], function () {
+        // Staffs / Users
+        Route::resource('staffs', StaffController::class);
+
+        // Setting
+        Route::resource('/settings', SettingController::class);
+    });
 });

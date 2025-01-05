@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Fluent;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
@@ -64,7 +65,7 @@ class DashboardController extends Controller
             'members_count' => Member::count(),
             'books_count' => Book::count(),
             'copies_count' => BookCopy::count(),
-            'staffs_count' => User::where(['role_id' => UserRole::STAFF])->get()->count(),
+            'staffs_count' => Role::where('name', 'staff')->first()->users->count(),
             'loan_data' => collect($loansResult)->pluck('total')->toArray(),
             'loan_labels' => $days,
             'visits_count' => Visit::whereDate('created_at', now()->toDateString())->count(),

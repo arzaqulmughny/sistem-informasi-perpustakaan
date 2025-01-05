@@ -15,7 +15,7 @@ class MemberSeeder extends Seeder
      */
     public function run(): void
     {
-        $superAdmin = User::where('role_id', UserRole::SUPER_ADMIN)->first();
+        $superAdmin = User::first();
 
         $data = [
             [

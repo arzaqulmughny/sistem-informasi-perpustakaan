@@ -24,9 +24,6 @@ class StaffsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('actions', 'pages.staffs.actions')
-            ->editColumn('role_id', function ($row) {
-                return $row->role->name ?? '';
-            })
             ->rawColumns(['actions']);
     }
 
@@ -35,7 +32,7 @@ class StaffsDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->role('Staff');
     }
 
     /**
@@ -44,19 +41,19 @@ class StaffsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('staffs-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('staffs-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -68,7 +65,6 @@ class StaffsDataTable extends DataTable
             Column::make('name')->title('Nama'),
             Column::make('email')->title('Email'),
             Column::make('phone_number')->title('Nomor Telepon'),
-            Column::make('role_id')->title('Peran'),
             Column::make('actions')->title('')->orderable(false)->searchable(false)
         ];
     }

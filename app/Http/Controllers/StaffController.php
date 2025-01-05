@@ -42,7 +42,7 @@ class StaffController extends Controller
             $user = User::create([
                 ...$data,
                 'created_by' => $request->user()->id
-            ]);
+            ])->assignRole('staff');
 
             // Handle upload profile picture
             if ($profilePicture = $request->file('profile_picture')) {
@@ -54,7 +54,7 @@ class StaffController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('staffs.index')->with('success', 'Berhasil menambahkan data, gunakan "password0101" untuk login');
+            return redirect()->route('staffs.index')->with('success', 'Berhasil menambahkan data');
         } catch (Exception $exception) {
             DB::rollBack();
 

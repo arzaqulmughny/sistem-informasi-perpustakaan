@@ -7,6 +7,7 @@ use App\Models\UserRole;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -15,25 +16,32 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Roles
+        $roles = ['developer', 'admin', 'staff'];
+
+        foreach ($roles as $role) {
+            Role::updateOrCreate([
+                'name' => $role
+            ]);
+        }
+
+        // User
         $superAdmin = User::factory()->create([
             'name' => 'Developer',
             'email' => 'developer@demo.com',
-            'role_id' => UserRole::SUPER_ADMIN,
             'created_by' => 0,
-        ]);
+        ])->assignRole('developer');
 
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'adminsip@demo.com',
-            'role_id' => UserRole::ADMIN,
             'created_by' => $superAdmin->id
-        ]);
+        ])->assignRole('admin');
 
         User::factory()->create([
             'name' => 'Staff',
             'email' => 'staff@demo.com',
-            'role_id' => UserRole::STAFF,
             'created_by' => $superAdmin->id
-        ]);
+        ])->assignRole('staff');
     }
 }

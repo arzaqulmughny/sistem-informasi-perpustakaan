@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('phone_number');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('role_id')->default(UserRole::STAFF);
             $table->string('profile_picture')->nullable();
             $table->integer('created_by');
             $table->rememberToken();

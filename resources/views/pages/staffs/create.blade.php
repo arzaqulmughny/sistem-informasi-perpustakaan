@@ -1,10 +1,6 @@
 @extends('template')
 @section('title', 'Tambah Staff')
 
-@php
-    $roles = App\Models\UserRole::all();
-@endphp
-
 @section('content')
     <div class="container-fluid">
         @include('partials.alert')
@@ -17,22 +13,6 @@
         <form method="POST" action={{ route('staffs.store') }} enctype="multipart/form-data">
             @csrf
             <div class="card p-4">
-                <div class="form-group">
-                    <label for="role_id">Peran</label>
-                    <select class="form-control  @error('role_id') is-invalid @enderror" id="role_id" name="role_id"
-                        value="{{ old('role_id') ?? '' }}">
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-
-                    @error('role_id')
-                        <div class="d-block invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
                 <div class="form-group">
                     <label for="name">Nama</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"

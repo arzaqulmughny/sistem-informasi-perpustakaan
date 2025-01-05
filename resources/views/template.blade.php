@@ -9,7 +9,7 @@
     <meta name="author" content="">
 
     <title>@yield('title')</title>
-    <link rel="shortcut icon" href="https://placehold.co/600x400" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/{{ getSetting('app_icon') }}" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,7 +21,7 @@
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="/css/custom-dataTables.css">
-    
+
     @stack('metatags')
     @stack('style')
 
@@ -67,7 +67,7 @@
     <script src="js/demo/chart-pie-demo.js"></script> --}}
 
     <script src="/js/dataTables.min.js"></script>
-    
+
     <!-- Sweetalert 2 -->
     <script src="/vendor/sweetalert2@11.js"></script>
 

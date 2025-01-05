@@ -27,6 +27,13 @@ class SystemSettingSeeder extends Seeder
                 'name' => 'Ikon Aplikasi',
                 'type' => Setting::SYSTEM_TYPE
             ],
+            [
+                'key' => 'app_cover',
+                'default_value' => 'cover.png',
+                'description' => 'Nama file, Simpan icon pada public/img',
+                'name' => 'Cover Aplikasi',
+                'type' => Setting::SYSTEM_TYPE
+            ],
         ];
 
         foreach ($settings as $setting) {

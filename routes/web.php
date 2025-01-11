@@ -14,6 +14,9 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\VisitController;
 use App\Models\BookCopy;
 use Illuminate\Support\Facades\Route;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
+use Kreait\Firebase\Messaging\WebPushConfig;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,4 +90,21 @@ Route::middleware('auth')->group(function () {
         // Setting
         Route::resource('/settings', SettingController::class);
     });
+});
+
+Route::get('/test-notification', function () {
+   $deviceToken = 'fkus9BonurEbT2hFFWLKP2:APA91bHTyTkddbsC3bKu1AMXvPZxTRCFjIBSUdbuyOGwOzx3vDlFcxtfaXlj8KiWZzP8EV8pDmVja6CGlxi2eQ0ixbyC5czOVXNCPAG-W1nN2-HMonMW87o';
+   $notification = Notification::create('Notification Title', 'Notification Body', 'https://placehold.co/20x20/png');
+
+   $messaging = app('firebase.messaging');
+   $message = CloudMessage::new()
+            ->withNotification($notification)
+            ->withWebPushConfig(WebPushConfig::fromArray([
+                'fcm_options' => [
+                    'link' => 'https://arza.vercel.app',
+                ],
+            ]))
+            ->toToken($deviceToken);
+
+    $messaging->send($message);
 });

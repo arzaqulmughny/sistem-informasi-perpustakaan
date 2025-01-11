@@ -32,9 +32,7 @@ class ReturnController extends Controller
      */
     public function store(BookReturnRequest $request)
     {
-        $loan = Loan::where([
-            ...$request->only(['copy_id', 'member_id']),
-        ])->latest()->first();
+        $loan = Loan::where($request->only(['copy_id', 'member_id']))->latest()->first();
 
         $bookCopy = BookCopy::where([
             'id' => $loan->copy_id

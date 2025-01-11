@@ -81,13 +81,13 @@ class LoanDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            'DT_RowIndex' => ['title' => 'No.'],
+            'DT_RowIndex' => ['title' => 'No.', 'searchable' => false, 'orderable' => false],
             'member_id' => ['title' => 'Peminjam'],
             'book_name' => ['title' => 'Judul Buku'],
             'copy_id' => ['title' => 'Kode Salinan'],
             'return_date' => ['title' => 'Tgl. Kembali'],
             'is_returned' => ['title' => 'Status'],
-            'actions' => ['title' => ''],
+            'actions' => ['title' => '', 'searchable' => false, 'orderable' => false],
         ];
     }
 

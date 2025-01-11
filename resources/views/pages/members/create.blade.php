@@ -63,6 +63,18 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                        placeholder="Masukkan Password" name="password" value="{{ old('password') ?? '' }}">
+
+                    @error('password')
+                        <div class="d-block invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <label for="profile_picture">Foto</label>
                     <div class="d-flex flex-column" style="gap: 10px;">
                         <img src="https://placehold.co/600x400" id="profile_picture-preview" alt=""

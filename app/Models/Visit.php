@@ -16,6 +16,6 @@ class Visit extends Model
      */
     public function member()
     {
-        return $this->belongsTo(Member::class, 'member_id');
+        return $this->belongsTo(User::class, 'member_id');
     }
 }

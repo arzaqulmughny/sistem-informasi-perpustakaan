@@ -22,7 +22,7 @@ class VisitStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'member_id' => 'required|exists:members,id',
+            'member_id' => 'required|exists:users,id',
         ];
     }
 }

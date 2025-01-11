@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Roles
-        $roles = ['developer', 'admin', 'staff'];
+        $roles = ['developer', 'admin', 'staff', 'member'];
 
         foreach ($roles as $role) {
             Role::updateOrCreate([
@@ -43,5 +43,11 @@ class UserSeeder extends Seeder
             'email' => 'staff@demo.com',
             'created_by' => $superAdmin->id
         ])->assignRole('staff');
+
+        User::factory()->create([
+            'name' => 'Arza',
+            'email' => 'member@demo.com',
+            'created_by' => $superAdmin->id
+        ]);
     }
 }

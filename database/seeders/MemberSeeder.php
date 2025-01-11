@@ -33,9 +33,9 @@ class MemberSeeder extends Seeder
         ];
 
         foreach ($data as $member) {
-            Member::create(array_merge($member, [
+            User::factory()->create(array_merge($member, [
                 'created_by' => $superAdmin->id
-            ]));
+            ]))->assignRole('member');
         }
     }
 }

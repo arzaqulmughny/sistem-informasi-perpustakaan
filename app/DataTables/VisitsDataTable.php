@@ -38,7 +38,7 @@ class VisitsDataTable extends DataTable
      */
     public function query(Visit $model): QueryBuilder
     {
-        return $model->with('member')->newQuery();
+        return $model->newQuery();
     }
 
     /**

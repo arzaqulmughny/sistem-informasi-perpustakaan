@@ -91,10 +91,16 @@
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Masuk
                     </button>
+
+                    <!-- <button type="button" onclick="testNotification()" class="btn btn-secondary btn-user btn-block">
+                        Test Notification
+                    </button> -->
                 </form>
             </div>
         </div>
     </div>
+
+    @include('partials.firebase')
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -111,7 +117,14 @@
             $("#content").animate({
                 opacity: 1
             }, 800);
-        })
+
+            // Request notification permission
+            Notification.requestPermission();
+        });
+
+        const testNotification = () => {
+            $.get('/test-notification');
+        }
     </script>
 </body>
 

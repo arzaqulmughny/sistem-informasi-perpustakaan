@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -40,18 +41,20 @@ class User extends Authenticatable
     ];
 
     /**
-     * Define one-one relatinship for role
-     */
-    public function role(): HasOne
-    {
-        return $this->hasOne(UserRole::class, 'id', 'role_id');
-    }
-
-    /**
      * Get member visit
      */
     public function visits(): HasMany
     {
         return $this->hasMany(Visit::class, 'member_id', 'id');
+    }
+
+    /**
+     * Has visit attribute
+     */
+    public function getHasVisitedAttribute(): bool
+    {
+        $count = DB::select("SELECT COUNT(*) as total_rows FROM visits WHERE member_id = ? AND DATE(created_at) = CURDATE()", [$this->id]);
+        
+        return $count[0]->total_rows > 0;
     }
 }

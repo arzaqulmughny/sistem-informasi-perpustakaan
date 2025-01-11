@@ -16,12 +16,12 @@
                     <select id="member_id" class="js-example-basic-single js-states form-control" name="member_id">
                         @if (request()->get('member_id'))
                             @php
-                                $member = \App\Models\Member::find(request()->get('member_id'));
+                                $member = \App\Models\User::find(request()->get('member_id'));
                             @endphp
 
                             @if ($member)
                                 <option value="{{ request()->get('member_id') }}">
-                                    {{ @\App\Models\Member::find(request()->get('member_id'))->name }}</option>
+                                    {{ $member->name }}</option>
                             @endif
                         @endif
                     </select>

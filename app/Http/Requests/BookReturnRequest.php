@@ -23,7 +23,7 @@ class BookReturnRequest extends FormRequest
     {
         return [
             'copy_id' => 'required|exists:book_copies,id',
-            'member_id' => 'required|exists:members,id',
+            'member_id' => 'required|exists:users,id',
             'updated_at' => 'required|date'
         ];
     }

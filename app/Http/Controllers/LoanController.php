@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\LoanDataTable;
-use App\Http\Requests\StoreLoansRequest;
+use App\Http\Requests\StoreLoanRequest;
 use App\Models\BookCopy;
 use App\Models\Loan;
 use Exception;
@@ -33,17 +33,16 @@ class LoanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLoansRequest $request)
+    public function store(StoreLoanRequest $request)
     {
         $data = $request->validated();
 
         try {
             DB::beginTransaction();
 
-            Loan::create([
-                ...$data,
+            Loan::create(array_merge($data, [
                 'created_by' => $request->user()->id
-            ]);
+            ]));
 
             // Update book copy status
             BookCopy::where([

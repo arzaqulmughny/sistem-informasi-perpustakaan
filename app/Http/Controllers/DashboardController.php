@@ -62,7 +62,7 @@ class DashboardController extends Controller
         }
 
         $data = new Fluent([
-            'members_count' => Member::count(),
+            'members_count' => User::role('member')->count(),
             'books_count' => Book::count(),
             'copies_count' => BookCopy::count(),
             'staffs_count' => Role::where('name', 'staff')->first()->users->count(),

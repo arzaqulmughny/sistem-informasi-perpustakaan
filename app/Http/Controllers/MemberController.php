@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\DataTables\MembersDataTable;
 use App\Http\Requests\StoreMemberRequest;
 use App\Models\Member;
+use App\Models\User;
 use Exception;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class MemberController extends Controller
@@ -27,7 +29,8 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('pages.members.create');
+        $pageTitle = 'Tambah Anggota';
+        return view('pages.members.create', compact('pageTitle'));
     }
 
     /**
@@ -36,15 +39,14 @@ class MemberController extends Controller
     public function store(StoreMemberRequest $request)
     {
         $data = $request->validated();
-        $data['profile_picture'] = null;
 
         try {
             DB::beginTransaction();
 
-            $member = Member::create([
-                ...$data,
+            $member = User::create(array_merge($data, [
+                'password' => Hash::make($data['password']),
                 'created_by' => $request->user()->id
-            ]);
+            ]))->assignRole('member');
 
             // Upload profile picture
             if ($file = $request->file('profile_picture')) {
@@ -67,35 +69,37 @@ class MemberController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Member $member)
+    public function show(User $member)
     {
+        $pageTitle = $member->name;
         return view('pages.members.show', [
-            'data' => $member
+            'data' => $member,
+            'pageTitle' => $pageTitle
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Member $member)
+    public function edit(User $member)
     {
+        $pageTitle = $member->name;
         return view('pages.members.edit', [
-            'data' => $member
+            'data' => $member,
+            'pageTitle' => $pageTitle
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreMemberRequest $request, Member $member)
+    public function update(StoreMemberRequest $request, User $member)
     {
         $data = $request->except('profile_picture');
 
         try {
             DB::beginTransaction();
-            $member->update([
-                ...$data,
-            ]);
+            $member->update($data);
 
             // Upload profile picture
             if ($file = $request->file('profile_picture')) {
@@ -140,11 +144,8 @@ class MemberController extends Controller
      */
     public function ajax_get(Request $request)
     {
-        $data = DB::table('members')
-                    ->when($request->search, function (Builder $query, String $search) {
-                        $query->where('name', 'LIKE', '%' . $search .'%');
-                    })
-                    ->paginate(15);
+        $data = User::role('member')->paginate(15);
+
 
         return response()->json($data);
     }

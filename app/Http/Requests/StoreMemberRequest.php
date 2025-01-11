@@ -26,7 +26,8 @@ class StoreMemberRequest extends FormRequest
             'email' => 'required',
             'address' => 'required',
             'phone_number' => 'required',
-            'profile_picture' => 'nullable'
+            'profile_picture' => 'nullable',
+            'password' => 'required'
         ];
     }
 }

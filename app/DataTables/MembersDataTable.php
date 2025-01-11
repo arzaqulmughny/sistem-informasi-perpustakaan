@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Member;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -34,9 +34,9 @@ class MembersDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Member $model): QueryBuilder
+    public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->role('member');
     }
 
     /**

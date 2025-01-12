@@ -48,7 +48,7 @@ class Loan extends Model
             return false;
         }
 
-        return $this->return_date < now();
+        return $this->return_date <= now();
     }
 
     protected $appends = ['is_need_return'];

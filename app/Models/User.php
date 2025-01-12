@@ -57,4 +57,12 @@ class User extends Authenticatable
         
         return $count[0]->total_rows > 0;
     }
+
+    /**
+     * Get book active loans by current member
+     */
+    public function getActiveLoansAttribute()
+    {
+        return Loan::where('member_id', $this->id)->where('is_returned', false)->get();
+    }
 }

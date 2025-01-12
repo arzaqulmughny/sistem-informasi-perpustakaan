@@ -48,6 +48,6 @@ class UserSeeder extends Seeder
             'name' => 'Arza',
             'email' => 'member@demo.com',
             'created_by' => $superAdmin->id
-        ]);
+        ])->assignRole('member');
     }
 }

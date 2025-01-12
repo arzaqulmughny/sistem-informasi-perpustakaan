@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\LoanDataTable;
+use App\DataTables\LoansDataTable;
 use App\Http\Requests\StoreLoanRequest;
 use App\Models\BookCopy;
 use App\Models\Loan;
@@ -15,7 +15,7 @@ class LoanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(LoanDataTable $dataTable)
+    public function index(LoansDataTable $dataTable)
     {
         $pageTitle = 'Data Peminjaman';
         return $dataTable->render('pages.loans.index', compact('pageTitle'));

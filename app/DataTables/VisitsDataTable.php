@@ -38,7 +38,9 @@ class VisitsDataTable extends DataTable
      */
     public function query(Visit $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->when($this->member_id, function ($query, $memberId) {
+            $query->where('member_id', $memberId);
+        })->newQuery();
     }
 
     /**
@@ -49,7 +51,7 @@ class VisitsDataTable extends DataTable
         return $this->builder()
             ->setTableId('visits-table')
             ->columns($this->getColumns())
-            ->minifiedAjax()
+            ->minifiedAjax(route('dashboard.visits'))
             //->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()

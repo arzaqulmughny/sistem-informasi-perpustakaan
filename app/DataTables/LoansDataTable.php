@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class LoanDataTable extends DataTable
+class LoansDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -50,7 +50,9 @@ class LoanDataTable extends DataTable
      */
     public function query(Loan $model): QueryBuilder
     {
-        return $model->with('member', 'book')->newQuery();
+        return $model->with('member', 'book')->when($this->member_id, function ($query, $memberId) {
+            $query->where('member_id', $memberId);
+        })->newQuery();
     }
 
     /**
@@ -59,9 +61,9 @@ class LoanDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('loan-table')
+            ->setTableId('loans-table')
             ->columns($this->getColumns())
-            ->minifiedAjax()
+            ->minifiedAjax(route('dashboard.loans'))
             //->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()

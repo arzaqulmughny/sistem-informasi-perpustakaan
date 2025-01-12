@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard-loans', [DashboardController::class, 'getLoans'])->name('dashboard.loans');
+    Route::get('/dashboard-visits', [DashboardController::class, 'getVisits'])->name('dashboard.visits');
 
     Route::group(['middleware' => 'role:staff|developer'], function () {
         // Books
@@ -93,18 +95,18 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/test-notification', function () {
-   $deviceToken = 'fkus9BonurEbT2hFFWLKP2:APA91bHTyTkddbsC3bKu1AMXvPZxTRCFjIBSUdbuyOGwOzx3vDlFcxtfaXlj8KiWZzP8EV8pDmVja6CGlxi2eQ0ixbyC5czOVXNCPAG-W1nN2-HMonMW87o';
-   $notification = Notification::create('Notification Title', 'Notification Body', 'https://placehold.co/20x20/png');
+    $deviceToken = 'fkus9BonurEbT2hFFWLKP2:APA91bHTyTkddbsC3bKu1AMXvPZxTRCFjIBSUdbuyOGwOzx3vDlFcxtfaXlj8KiWZzP8EV8pDmVja6CGlxi2eQ0ixbyC5czOVXNCPAG-W1nN2-HMonMW87o';
+    $notification = Notification::create('Notification Title', 'Notification Body', 'https://placehold.co/20x20/png');
 
-   $messaging = app('firebase.messaging');
-   $message = CloudMessage::new()
-            ->withNotification($notification)
-            ->withWebPushConfig(WebPushConfig::fromArray([
-                'fcm_options' => [
-                    'link' => 'https://arza.vercel.app',
-                ],
-            ]))
-            ->toToken($deviceToken);
+    $messaging = app('firebase.messaging');
+    $message = CloudMessage::new()
+        ->withNotification($notification)
+        ->withWebPushConfig(WebPushConfig::fromArray([
+            'fcm_options' => [
+                'link' => 'https://arza.vercel.app',
+            ],
+        ]))
+        ->toToken($deviceToken);
 
     $messaging->send($message);
 });

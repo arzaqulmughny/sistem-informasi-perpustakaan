@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\LoansDataTable;
+use App\DataTables\VisitsDataTable;
 use App\Models\Book;
 use App\Models\BookCopy;
 use App\Models\Loan;
@@ -17,8 +19,12 @@ use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(LoansDataTable $loansDataTable, VisitsDataTable $visitsDataTable)
     {
+        if (auth()->user()->hasRole('member')) {
+            return $this->indexMember($loansDataTable, $visitsDataTable);
+        }
+
         $totalDays = Carbon::now()->daysInMonth;
         $currentMonth = date('m');
         $currentYear = date('Y');
@@ -75,5 +81,44 @@ class DashboardController extends Controller
 
         $pageTitle = 'Dashboard';
         return view('index', compact('data', 'pageTitle'));
+    }
+
+    /**
+     * Index page for member
+     */
+    public function indexMember(LoansDataTable $loansDataTable, VisitsDataTable $visitsDataTable)
+    {
+        $pageTitle = 'Beranda';
+        $active_loans = auth()->user()->active_loans;
+
+        $data = new Fluent([
+            'active_loans' => $active_loans,
+            'active_loans_count' => $active_loans->count(),
+            'need_return_count' => DB::select("SELECT COUNT(*) AS total FROM loans WHERE member_id = ? AND is_returned = 0 AND return_date <= CURDATE()", [auth()->user()->id])[0]->total,
+            'visits_count' => DB::select("SELECT COUNT(*) AS total FROM visits WHERE member_id = ? AND DATE(created_at) BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND LAST_DAY(CURDATE())", [auth()->user()->id])[0]->total,
+        ]);
+
+        return view('index-member', [
+            'data' => $data,
+            'pageTitle' => $pageTitle,
+            'loansDataTable' => $loansDataTable->html(),
+            'visitsDataTable' => $visitsDataTable->html(),
+        ]);
+    }
+
+    /**
+     * Get loans datatable ajax
+     */
+    public function getLoans(LoansDataTable $loansDataTable)
+    {
+        return $loansDataTable->with(['member_id' => auth()->user()->id])->render();
+    }
+
+    /**
+     * Get visits datattable ajax
+     */
+    public function getVisits(VisitsDataTable $visitsDataTable)
+    {
+        return $visitsDataTable->with(['member_id' => auth()->user()->id])->render();
     }
 }

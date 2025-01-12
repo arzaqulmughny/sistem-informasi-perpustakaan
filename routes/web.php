@@ -44,6 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard-loans', [DashboardController::class, 'getLoans'])->name('dashboard.loans');
     Route::get('/dashboard-visits', [DashboardController::class, 'getVisits'])->name('dashboard.visits');
 
+    // Profile
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
     Route::group(['middleware' => 'role:staff|developer'], function () {
         // Books
         Route::post('/book-copies/import-copies', [BookCopyController::class, 'import'])->name('book-copies.import');
@@ -67,11 +72,6 @@ Route::middleware('auth')->group(function () {
 
         // Book Category
         Route::resource('book-categories', BookCategoryController::class);
-
-        // Profile
-        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::put('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
 
         // Loan
         Route::resource('loans', LoanController::class);

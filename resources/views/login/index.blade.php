@@ -70,9 +70,9 @@
                             id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email">
 
                         @error('email')
-                            <div class="invalid-feedback d-block">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback d-block">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
@@ -82,11 +82,13 @@
                             id="exampleInputPassword" placeholder="Kata Sandi">
 
                         @error('password')
-                            <div class="invalid-feedback d-block">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback d-block">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
+
+                    <input style="display: none;" name="device_id" />
 
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Masuk

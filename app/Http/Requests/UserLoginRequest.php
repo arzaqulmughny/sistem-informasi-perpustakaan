@@ -24,7 +24,8 @@ class UserLoginRequest extends FormRequest
         return [
             'email' => 'required',
             'password' => 'required',
-            'remember' => 'nullable'
+            'remember' => 'nullable',
+            'device_id' => 'nullable',
         ];
     }
 }

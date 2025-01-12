@@ -43,7 +43,9 @@
             if (currentToken) {
                 // Send the token to your server and update the UI if necessary
                 // ...
-                console.log(currentToken);
+
+                document.querySelector('input[name="device_id"]').value = currentToken;
+
             } else {
                 // Show permission request UI
                 console.log('No registration token available. Request permission to generate one.');

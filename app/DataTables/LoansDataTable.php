@@ -63,7 +63,7 @@ class LoansDataTable extends DataTable
         return $this->builder()
             ->setTableId('loans-table')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('dashboard.loans'))
+            ->minifiedAjax($this->minifiedAjax ? $this->minifiedAjax : '')
             //->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()

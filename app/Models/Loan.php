@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,6 +50,14 @@ class Loan extends Model
         }
 
         return $this->return_date <= now();
+    }
+
+    /**
+     * Scope for need to return loan
+     */
+    public function scopeNeedReturn(Builder $query)
+    {
+        $query->where('return_date', '<=', now())->where('is_returned', 0);
     }
 
     protected $appends = ['is_need_return'];

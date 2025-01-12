@@ -101,8 +101,8 @@ class DashboardController extends Controller
         return view('index-member', [
             'data' => $data,
             'pageTitle' => $pageTitle,
-            'loansDataTable' => $loansDataTable->html(),
-            'visitsDataTable' => $visitsDataTable->html(),
+            'loansDataTable' => $loansDataTable->with(['minifiedAjax' => route('dashboard.loans')])->html(),
+            'visitsDataTable' => $visitsDataTable->with(['minifiedAjax' => route('dashboard.visits')])->html(),
         ]);
     }
 

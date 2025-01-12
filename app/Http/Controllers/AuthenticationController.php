@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserLoginRequest;
 use App\Models\User;
+use App\Models\UserDeviceId;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,13 @@ class AuthenticationController extends Controller
         // Attempt login
         if (Auth()->attempt($request->only(['email', 'password']), $request->remember)) {
             $request->session()->regenerate();
+
+            if ($request->device_id) {
+                UserDeviceId::firstOrCreate([
+                    'device_id' => $request->device_id,
+                    'user_id' => Auth::user()->id,
+                ]);
+            }
 
             return redirect()->intended('dashboard');
         } else {

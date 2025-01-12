@@ -54,7 +54,7 @@ class User extends Authenticatable
     public function getHasVisitedAttribute(): bool
     {
         $count = DB::select("SELECT COUNT(*) as total_rows FROM visits WHERE member_id = ? AND DATE(created_at) = CURDATE()", [$this->id]);
-        
+
         return $count[0]->total_rows > 0;
     }
 
@@ -64,5 +64,13 @@ class User extends Authenticatable
     public function getActiveLoansAttribute()
     {
         return Loan::where('member_id', $this->id)->where('is_returned', false)->get();
+    }
+
+    /**
+     * Define relationship for device id
+     */
+    public function deviceIds(): HasMany
+    {
+        return $this->hasMany(UserDeviceId::class, 'user_id', 'id');
     }
 }

@@ -51,7 +51,7 @@ class VisitsDataTable extends DataTable
         return $this->builder()
             ->setTableId('visits-table')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('dashboard.visits'))
+            ->minifiedAjax($this->minifiedAjax ? $this->minifiedAjax : '')
             //->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()

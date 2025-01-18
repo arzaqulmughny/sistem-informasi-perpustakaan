@@ -25,7 +25,8 @@ class BookCategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.book-categories.create');
+        $pageTitle = 'Tambah Kategori Buku';
+        return view('pages.book-categories.create', compact('pageTitle'));
     }
 
     /**
@@ -93,7 +94,7 @@ class BookCategoryController extends Controller
         try {
             DB::beginTransaction();
             $bookCategory->delete();
-            
+
             DB::commit();
             return redirect()->route('book-categories.index')->with('success', 'Berhasil memperbarui data');
         } catch (Exception $exception) {

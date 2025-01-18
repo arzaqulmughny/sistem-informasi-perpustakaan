@@ -19,8 +19,10 @@ class BookCopyController extends Controller
      */
     public function create(Book $book)
     {
+        $pageTitle = 'Tambah Salinan ' . $book->title;
         return view('pages.books.copies.create', [
-            'parent' => $book
+            'parent' => $book,
+            'pageTitle' => $pageTitle
         ]);
     }
 

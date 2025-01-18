@@ -28,8 +28,10 @@ class BookController extends Controller
      */
     public function show(Book $book, BookCopiesDataTable $dataTable)
     {
+        $pageTitle = 'Detail Buku ' . $book->name;
         return $dataTable->render('pages.books.show', [
             'data' => $book,
+            'pageTitle' => $pageTitle
         ]);
     }
 
@@ -38,8 +40,10 @@ class BookController extends Controller
      */
     public function edit(Book $book, BookCopiesDataTable $dataTable)
     {
+        $pageTitle = 'Edit Buku ' . $book->name;
         return $dataTable->render('pages.books.edit', [
             'data' => $book,
+            'pageTitle' => $pageTitle
         ]);
     }
 
@@ -49,7 +53,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('pages.books.create');
+        $pageTitle = 'Tambah Buku';
+        return view('pages.books.create', compact('pageTitle'));
     }
 
     /**

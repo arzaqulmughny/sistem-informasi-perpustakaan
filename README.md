@@ -41,7 +41,7 @@ Untuk demo saya buatkan melalui video yang dapat anda putar diatas
 cp .env.example .env // lalu sesuaikan pengaturan database
 php artisan key:generate
 php artisan storage:link
-php artisan migrate:fresh
+php artisan migrate:fresh --seed
 php artisan serve
 ```
 
